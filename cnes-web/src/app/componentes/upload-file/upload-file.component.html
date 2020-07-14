@@ -1,0 +1,15 @@
+<div class="content " role="main">
+  <div class="content2" role="main">
+    <div class="panel panel-default col-md-12">
+      <div class="panel-body">
+        <h4>Importar arquivo Cadastro Nacional de Estabelecimentos de Saúde. </h4>
+        <div class="loader" *ngIf="progresso"></div>
+        <label *ngIf="progresso">Processando o arquivo: {{this.nomeArquivo}}</label>
+      </div>
+    </div>
+  </div>
+  
+  <input type="file" id="customFile" (change)="selectFile($event)">
+  <br>
+  <button class="btn btn-primary" [disabled]="!selectedFiles " (click)="upload()">Enviar</button>
+</div>

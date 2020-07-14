@@ -1,0 +1,88 @@
+
+<div class="wrapper" role="main">
+  <div class="panel panel-default col-md-12">
+    
+    <h5>Filtro de Pesquisa</h5>
+    <div class="panel-body col-md-12">
+      <div class="radio" (click)="selecionar('todos')">
+        <label>
+          <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" (click)="selecionar('todos')">
+          Listar todos
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" (click)="selecionar('estado')">
+          Listar por Estado
+        </label>
+        <span [hidden]="opcaoSelecionada != 'estado'">
+            <select class="form-control" id="sel1" [(ngModel)]="tipoEstado" >
+            <option *ngFor=" let item of estados;" [value]="item.sigla">{{item.nome}}</option>
+          </select>
+        </span>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3" (click)="selecionar('gestao')">
+          Listar por Tipo Gestão
+        </label>
+        <span [hidden]="opcaoSelecionada != 'gestao'">
+            <select class="form-control" id="sel2" [(ngModel)]="tipoGestao">
+            <option *ngFor=" let item of tiposGestao;" [value]="item.sigla">{{item.nome}}</option>
+          </select>
+        </span>
+      </div>
+      <button type="button" class="btn btn-danger" *ngIf="exibirPesquisa" (click)="buscarResultado()">Pesquisar</button>
+    </div>
+    
+  </div>
+</div>
+
+<div class="loader" style="float: left;" *ngIf="progesso"></div>
+
+<div class="col-md-12" [hidden]="loader">
+  <h5 class="titulo-tabela"> 
+    <b>Lista de CNES</b>
+  </h5>
+  <h6>Total de Registros encontrados: {{this.registros.length}}</h6>
+  <table class="table table-striped" style="text-align: center;">
+    <thead>
+      <tr style="text-align: center;">
+        <th>CNES</th>
+        <th>IBGE</th>
+        <th>Nome Fantasia</th>
+        <th>Unidade</th>
+        <th>Tipo Gestão</th>
+        <th>Logradouro</th>
+        <th>Endereço</th>
+        <th>Bairro</th>
+        <th>CEP</th>
+        <th>UF</th>
+        <th>Municipio</th>
+        <th>Telefone</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="registros.length != 0">
+      <tr *ngFor="let item of registros | paginate: { itemsPerPage: contador, currentPage: pag }">
+        <td>{{item.codigoCNES}}</td>
+        <td>{{item.codigoIBGE}}</td>
+        <td>{{item.nomeFantasia}}</td>
+        <td>{{item.descricaoTipoUnidade}}</td>
+        <td>{{item.tipoGestao}}</td>
+        <td>{{item.numeroLogradouro}}</td>
+        <td>{{item.numeroEndereco}}</td>
+        <td>{{item.nomeBairro}}</td>
+        <td>{{item.codigoCEP}}</td>
+        <td>{{item.siglaEstado}}</td>
+        <td>{{item.municipio}}</td>
+        <td>{{item.numeroTelefone}}</td>
+      </tr>
+    </tbody>
+   <tbody *ngIf="registros.length == 0" style="text-align: left;font-size: 10px; color: red;">
+      <td>Nenhum arquivo foi importado até o momento!</td>
+    </tbody>
+  </table>
+  <div class="text-right" *ngIf="registros.length != 0">
+    <pagination-controls (pageChange)="pag = $event"></pagination-controls>
+  </div>
+</div>

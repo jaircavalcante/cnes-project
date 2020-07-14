@@ -1,0 +1,21 @@
+<div class="toolbar" role="banner">
+  <img
+    width="40"
+    alt="Angular Logo"
+    src="https://icon-library.com/images/data-icon-png/data-icon-png-18.jpg"
+  />
+  <span>DESAFIO MV SISTEMAS</span>
+</div>
+
+<div class="content2" role="">
+  <ul>
+    <li class="sub-menu">
+      <button type="button" class="btn btn-secondary" (click)="importarArquivo()">Importar Arquivo</button>
+      <button type="button" class="btn btn-secondary" (click)="consultarDados()">Consultar dados CNES</button>
+    </li>
+  </ul>
+</div>
+
+<div class="wrapper" role="main">
+  <router-outlet></router-outlet>
+</div>
